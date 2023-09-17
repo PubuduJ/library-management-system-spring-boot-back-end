@@ -1,6 +1,7 @@
 package lk.pubudu.app.member.service;
 
 import lk.pubudu.app.dto.MemberDTO;
+import lk.pubudu.app.exception.NotFoundException;
 import lk.pubudu.app.member.entity.Member;
 import lk.pubudu.app.member.repository.MemberRepository;
 import lk.pubudu.app.util.Transformer;
@@ -45,5 +46,13 @@ public class MemberService {
             memberDTOList.add(transformer.toMemberDTO(member));
         }
         return memberDTOList;
+    }
+
+    public void deleteMember(String id) {
+        Optional<Member> member = memberRepository.findById(id);
+        if (member.isEmpty()) {
+            throw new NotFoundException("Member doesn't exist in the system");
+        }
+        memberRepository.deleteById(member.get().getId());
     }
 }

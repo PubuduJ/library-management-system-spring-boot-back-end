@@ -31,4 +31,11 @@ public class MemberController {
     public ResponseEntity<List<MemberDTO>> searchMembers(@RequestParam String q) {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.searchMembers(q));
     }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> deleteMember(@PathVariable String id) {
+        memberService.deleteMember(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
