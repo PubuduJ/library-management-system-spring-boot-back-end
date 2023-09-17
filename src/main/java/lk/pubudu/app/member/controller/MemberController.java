@@ -59,4 +59,9 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(memberService.searchMembersByPage(q, size, page));
     }
 
+    @PatchMapping(path = "/{id}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<MemberDTO> updateMember(@PathVariable String id, @RequestBody MemberDTO memberDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(memberService.updateMember(id, memberDTO));
+    }
+
 }

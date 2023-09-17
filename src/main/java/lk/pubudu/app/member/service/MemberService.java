@@ -88,4 +88,13 @@ public class MemberService {
         }
         return memberDTOList;
     }
+
+    public MemberDTO updateMember(String id, MemberDTO memberDTO) {
+        Optional<Member> availability = memberRepository.findById(id);
+        if (availability.isEmpty()) {
+            throw new NotFoundException("Member doesn't exist in the system");
+        }
+        Member updatedMember = memberRepository.save(transformer.toMemberEntity(memberDTO));
+        return transformer.toMemberDTO(updatedMember);
+    }
 }
