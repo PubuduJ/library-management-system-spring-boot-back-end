@@ -26,4 +26,9 @@ public class MemberController {
     public ResponseEntity<List<MemberDTO>> loadAllMembers() {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.loadAllMembers());
     }
+
+    @GetMapping(params = "q", produces = "application/json")
+    public ResponseEntity<List<MemberDTO>> searchMembers(@RequestParam String q) {
+        return ResponseEntity.status(HttpStatus.OK).body(memberService.searchMembers(q));
+    }
 }

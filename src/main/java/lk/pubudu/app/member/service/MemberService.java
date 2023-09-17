@@ -36,4 +36,14 @@ public class MemberService {
         }
         return memberDTOList;
     }
+
+    public List<MemberDTO> searchMembers(String q) {
+        String query = "%".concat(q).concat("%");
+        List<Member> membersByQuery = memberRepository.findMembersByQuery(query);
+        ArrayList<MemberDTO> memberDTOList = new ArrayList<>();
+        for (Member member : membersByQuery) {
+            memberDTOList.add(transformer.toMemberDTO(member));
+        }
+        return memberDTOList;
+    }
 }
