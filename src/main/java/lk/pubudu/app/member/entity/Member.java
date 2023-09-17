@@ -26,6 +26,6 @@ public class Member implements Serializable {
     private String name;
     @Column(nullable = false, columnDefinition = "VARCHAR(250)")
     private String address;
-    @Column(nullable = false, columnDefinition = "VARCHAR(11)")
+    @Column(nullable = false, columnDefinition = "VARCHAR(11)", unique = true)
     private String contact;
 }

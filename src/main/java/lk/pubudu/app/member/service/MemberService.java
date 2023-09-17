@@ -1,10 +1,14 @@
 package lk.pubudu.app.member.service;
 
 import lk.pubudu.app.dto.MemberDTO;
+import lk.pubudu.app.member.entity.Member;
 import lk.pubudu.app.member.repository.MemberRepository;
 import lk.pubudu.app.util.Transformer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,6 +18,11 @@ public class MemberService {
     private final Transformer transformer;
 
     public MemberDTO createMember(MemberDTO memberDTO) {
-        return null;
+        Optional<Member> availability = memberRepository.findByContact(memberDTO.getContact());
+        if (availability.isPresent()) {
+            throw new DuplicateKeyException("Member is already exist in the system");
+        }
+        Member member = memberRepository.save(transformer.toMemberEntity(memberDTO));
+        return transformer.toMemberDTO(member);
     }
 }
