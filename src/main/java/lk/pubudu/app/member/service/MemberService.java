@@ -8,6 +8,7 @@ import lk.pubudu.app.util.Transformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final Transformer transformer;
 
+    @Transactional
     public MemberDTO createMember(MemberDTO memberDTO) {
         Optional<Member> availability = memberRepository.findByContact(memberDTO.getContact());
         if (availability.isPresent()) {
@@ -48,6 +50,7 @@ public class MemberService {
         return memberDTOList;
     }
 
+    @Transactional
     public void deleteMember(String id) {
         Optional<Member> member = memberRepository.findById(id);
         if (member.isEmpty()) {
