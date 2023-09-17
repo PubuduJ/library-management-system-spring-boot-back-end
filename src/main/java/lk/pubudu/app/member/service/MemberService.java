@@ -69,8 +69,8 @@ public class MemberService {
     }
 
     public List<MemberDTO> loadMembersByPage(int size, int page) {
-        PageRequest paging = PageRequest.of(page, size);
-        List<Member> members = memberRepository.findAll(paging).toList();
+        int offset = (page - 1) * size;
+        List<Member> members = memberRepository.findMembersByPage(size, offset);
         ArrayList<MemberDTO> memberDTOList = new ArrayList<>();
         for (Member member : members) {
             memberDTOList.add(transformer.toMemberDTO(member));
@@ -79,7 +79,13 @@ public class MemberService {
     }
 
     public List<MemberDTO> searchMembersByPage(String q, int size, int page) {
-
-        return null;
+        String query = "%".concat(q).concat("%");
+        int offset = (page - 1) * size;
+        List<Member> membersByPage = memberRepository.findMembersByPage(query, size, offset);
+        ArrayList<MemberDTO> memberDTOList = new ArrayList<>();
+        for (Member member : membersByPage) {
+            memberDTOList.add(transformer.toMemberDTO(member));
+        }
+        return memberDTOList;
     }
 }
