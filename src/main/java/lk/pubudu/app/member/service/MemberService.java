@@ -89,6 +89,7 @@ public class MemberService {
         return memberDTOList;
     }
 
+    @Transactional
     public MemberDTO updateMember(String id, MemberDTO memberDTO) {
         Optional<Member> availability = memberRepository.findById(id);
         if (availability.isEmpty()) {
