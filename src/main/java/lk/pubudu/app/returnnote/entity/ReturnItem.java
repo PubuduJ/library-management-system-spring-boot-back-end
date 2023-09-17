@@ -21,7 +21,7 @@ public class ReturnItem implements Serializable {
     @Serial
     private static final long serialVersionUID = -1825809066197938424L;
     @Id
-    @ManyToOne
+    @OneToOne
     @JoinColumns({
             @JoinColumn(name = "issue_id", referencedColumnName = "issue_id"),
             @JoinColumn(name = "isbn", referencedColumnName = "isbn")

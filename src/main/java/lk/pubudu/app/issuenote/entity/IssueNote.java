@@ -16,6 +16,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "issue-note")
+@ToString(exclude = "issueItemSet")
+@EqualsAndHashCode(exclude = "issueItemSet")
 public class IssueNote implements Serializable {
     @Serial
     private static final long serialVersionUID = 6696261572257759301L;
@@ -27,4 +29,13 @@ public class IssueNote implements Serializable {
     @ManyToOne
     @JoinColumn(name = "member_id", referencedColumnName = "id", nullable = false)
     private Member member;
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "issueNote")
+    private Set<IssueItem> issueItemSet = new HashSet<>();
+
+    public IssueNote(Integer id, Date date, Member member) {
+        this.id = id;
+        this.date = date;
+        this.member = member;
+    }
 }

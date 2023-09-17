@@ -15,6 +15,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "book")
+@ToString(exclude = "issueItemSet")
+@EqualsAndHashCode(exclude = "issueItemSet")
 public class Book implements Serializable {
     @Serial
     private static final long serialVersionUID = -8718657608094911954L;
@@ -27,4 +29,14 @@ public class Book implements Serializable {
     private String author;
     @Column(nullable = false)
     private Integer copies;
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "book")
+    private Set<IssueItem> issueItemSet = new HashSet<>();
+
+    public Book(String isbn, String title, String author, Integer copies) {
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+        this.copies = copies;
+    }
 }
