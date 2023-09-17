@@ -4,6 +4,7 @@ import lk.pubudu.app.book.service.BookService;
 import lk.pubudu.app.dto.BookDTO;
 import lk.pubudu.app.dto.MemberDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,13 @@ public class BookController {
     @GetMapping(path = "/{id}", produces = "application/json")
     public ResponseEntity<BookDTO> getBookDetails(@PathVariable String id) {
         return ResponseEntity.status(HttpStatus.OK).body(bookService.getBookDetails(id));
+    }
+
+    @GetMapping(params = {"size", "page"}, produces = "application/json")
+    public ResponseEntity<List<BookDTO>> loadBooksByPage(@RequestParam int size, @RequestParam int page) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("X-Total-Count", String.valueOf(bookService.loadAllBooks().size()));
+        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(bookService.loadBooksByPage(size, page));
     }
 
 }

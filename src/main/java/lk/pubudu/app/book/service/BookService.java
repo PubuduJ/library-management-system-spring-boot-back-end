@@ -59,4 +59,14 @@ public class BookService {
         }
         return transformer.toBookDTO(availability.get());
     }
+
+    public List<BookDTO> loadBooksByPage(int size, int page) {
+        int offset = (page - 1) * size;
+        List<Book> books = bookRepository.findBooksByPage(size, offset);
+        ArrayList<BookDTO> bookDTOList = new ArrayList<>();
+        for (Book book : books) {
+            bookDTOList.add(transformer.toBookDTO(book));
+        }
+        return bookDTOList;
+    }
 }
