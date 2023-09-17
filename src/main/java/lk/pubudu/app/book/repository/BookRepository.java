@@ -1,7 +1,6 @@
 package lk.pubudu.app.book.repository;
 
 import lk.pubudu.app.book.entity.Book;
-import lk.pubudu.app.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
