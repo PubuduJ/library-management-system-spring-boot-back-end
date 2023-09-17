@@ -7,6 +7,7 @@ import lk.pubudu.app.member.repository.MemberRepository;
 import lk.pubudu.app.util.Transformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,5 +66,20 @@ public class MemberService {
             throw new NotFoundException("Member doesn't exist in the system");
         }
         return transformer.toMemberDTO(availability.get());
+    }
+
+    public List<MemberDTO> loadMembersByPage(int size, int page) {
+        PageRequest paging = PageRequest.of(page, size);
+        List<Member> members = memberRepository.findAll(paging).toList();
+        ArrayList<MemberDTO> memberDTOList = new ArrayList<>();
+        for (Member member : members) {
+            memberDTOList.add(transformer.toMemberDTO(member));
+        }
+        return memberDTOList;
+    }
+
+    public List<MemberDTO> searchMembersByPage(String q, int size, int page) {
+
+        return null;
     }
 }
