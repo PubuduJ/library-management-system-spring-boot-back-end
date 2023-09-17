@@ -3,9 +3,7 @@ package lk.pubudu.app.book.service;
 import lk.pubudu.app.book.entity.Book;
 import lk.pubudu.app.book.repository.BookRepository;
 import lk.pubudu.app.dto.BookDTO;
-import lk.pubudu.app.dto.MemberDTO;
 import lk.pubudu.app.exception.NotFoundException;
-import lk.pubudu.app.member.entity.Member;
 import lk.pubudu.app.util.Transformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
@@ -79,5 +77,14 @@ public class BookService {
             bookDTOList.add(transformer.toBookDTO(book));
         }
         return bookDTOList;
+    }
+
+    public BookDTO updateBook(String id, BookDTO bookDTO) {
+        Optional<Book> availability = bookRepository.findById(id);
+        if (availability.isEmpty()) {
+            throw new NotFoundException("Book doesn't exist in the system");
+        }
+        Book updatedBook = bookRepository.save(transformer.toBookEntity(bookDTO));
+        return transformer.toBookDTO(updatedBook);
     }
 }

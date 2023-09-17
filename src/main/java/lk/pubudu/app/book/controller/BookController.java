@@ -52,4 +52,9 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(bookService.searchBooksByPage(q, size, page));
     }
 
+    @PatchMapping(path = "/{id}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<BookDTO> updateBook(@PathVariable String id, @RequestBody BookDTO bookDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(bookService.updateBook(id, bookDTO));
+    }
+
 }
