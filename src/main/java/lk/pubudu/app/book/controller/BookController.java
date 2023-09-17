@@ -28,4 +28,9 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.OK).body(bookService.loadAllBooks());
     }
 
+    @GetMapping(params = "q", produces = "application/json")
+    public ResponseEntity<List<BookDTO>> searchBooks(@RequestParam String q) {
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.searchBooks(q));
+    }
+
 }

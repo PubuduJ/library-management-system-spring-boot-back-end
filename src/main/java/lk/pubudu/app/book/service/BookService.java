@@ -40,4 +40,14 @@ public class BookService {
         }
         return bookDTOList;
     }
+
+    public List<BookDTO> searchBooks(String q) {
+        String query = "%".concat(q).concat("%");
+        List<Book> booksByQuery = bookRepository.findBooksByQuery(query);
+        ArrayList<BookDTO> bookDTOList = new ArrayList<>();
+        for (Book book : booksByQuery) {
+            bookDTOList.add(transformer.toBookDTO(book));
+        }
+        return bookDTOList;
+    }
 }
