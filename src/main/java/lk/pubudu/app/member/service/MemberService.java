@@ -81,7 +81,7 @@ public class MemberService {
     public List<MemberDTO> searchMembersByPage(String q, int size, int page) {
         String query = "%".concat(q).concat("%");
         int offset = (page - 1) * size;
-        List<Member> membersByPage = memberRepository.findMembersByPage(query, size, offset);
+        List<Member> membersByPage = memberRepository.searchMembersByPage(query, size, offset);
         ArrayList<MemberDTO> memberDTOList = new ArrayList<>();
         for (Member member : membersByPage) {
             memberDTOList.add(transformer.toMemberDTO(member));

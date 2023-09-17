@@ -69,4 +69,15 @@ public class BookService {
         }
         return bookDTOList;
     }
+
+    public List<BookDTO> searchBooksByPage(String q, int size, int page) {
+        String query = "%".concat(q).concat("%");
+        int offset = (page - 1) * size;
+        List<Book> booksByPage = bookRepository.searchBooksByPage(query, size, offset);
+        ArrayList<BookDTO> bookDTOList = new ArrayList<>();
+        for (Book book : booksByPage) {
+            bookDTOList.add(transformer.toBookDTO(book));
+        }
+        return bookDTOList;
+    }
 }

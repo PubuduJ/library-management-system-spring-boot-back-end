@@ -1,7 +1,6 @@
 package lk.pubudu.app.member.controller;
 
 import lk.pubudu.app.dto.MemberDTO;
-import lk.pubudu.app.member.repository.MemberRepository;
 import lk.pubudu.app.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;

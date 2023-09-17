@@ -17,4 +17,7 @@ public interface BookRepository extends JpaRepository<Book, String> {
     @Query(value = "SELECT * FROM book LIMIT ?1 OFFSET ?2", nativeQuery = true)
     List<Book> findBooksByPage(int limit, int offset);
 
+    @Query(value = "SELECT * FROM book WHERE book.isbn LIKE ?1 OR book.title LIKE ?1 OR book.author LIKE ?1 LIMIT ?2 OFFSET ?3", nativeQuery = true)
+    List<Book> searchBooksByPage(String query, int limit, int offset);
+
 }
