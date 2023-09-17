@@ -33,4 +33,9 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.OK).body(bookService.searchBooks(q));
     }
 
+    @GetMapping(path = "/{id}", produces = "application/json")
+    public ResponseEntity<BookDTO> getBookDetails(@PathVariable String id) {
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.getBookDetails(id));
+    }
+
 }
