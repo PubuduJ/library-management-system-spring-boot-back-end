@@ -18,7 +18,6 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-    private final MemberRepository memberRepository;
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<MemberDTO> createMember(@RequestBody MemberDTO memberDTO) {
@@ -49,14 +48,14 @@ public class MemberController {
     @GetMapping(params = {"size", "page"}, produces = "application/json")
     public ResponseEntity<List<MemberDTO>> loadMembersByPage(@RequestParam int size, @RequestParam int page) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-Total-Count", String.valueOf(memberRepository.findAll().size()));
+        headers.add("X-Total-Count", String.valueOf(memberService.loadAllMembers().size()));
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(memberService.loadMembersByPage(size, page));
     }
 
     @GetMapping(params = {"q", "size", "page"}, produces = "application/json")
     public ResponseEntity<List<MemberDTO>> searchMembersByPage(@RequestParam String q, @RequestParam int size, @RequestParam int page) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-Total-Count", String.valueOf(memberRepository.findAll().size()));
+        headers.add("X-Total-Count", String.valueOf(memberService.loadAllMembers().size()));
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(memberService.searchMembersByPage(q, size, page));
     }
 
