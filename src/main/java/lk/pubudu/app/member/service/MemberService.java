@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,5 +26,14 @@ public class MemberService {
         }
         Member member = memberRepository.save(transformer.toMemberEntity(memberDTO));
         return transformer.toMemberDTO(member);
+    }
+
+    public List<MemberDTO> loadAllMembers() {
+        List<Member> allMembers = memberRepository.findAll();
+        ArrayList<MemberDTO> memberDTOList = new ArrayList<>();
+        for (Member member : allMembers) {
+            memberDTOList.add(transformer.toMemberDTO(member));
+        }
+        return memberDTOList;
     }
 }
