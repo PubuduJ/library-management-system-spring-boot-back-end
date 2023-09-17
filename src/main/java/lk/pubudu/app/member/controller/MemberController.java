@@ -38,4 +38,9 @@ public class MemberController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping(path = "/{id}", produces = "application/json")
+    public ResponseEntity<MemberDTO> getMemberDetails(@PathVariable String id) {
+        return ResponseEntity.status(HttpStatus.OK).body(memberService.getMemberDetails(id));
+    }
+
 }

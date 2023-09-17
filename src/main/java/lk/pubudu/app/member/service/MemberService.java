@@ -58,4 +58,12 @@ public class MemberService {
         }
         memberRepository.deleteById(member.get().getId());
     }
+
+    public MemberDTO getMemberDetails(String id) {
+        Optional<Member> availability = memberRepository.findById(id);
+        if (availability.isEmpty()) {
+            throw new NotFoundException("Member doesn't exist in the system");
+        }
+        return transformer.toMemberDTO(availability.get());
+    }
 }
