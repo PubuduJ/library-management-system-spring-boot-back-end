@@ -7,10 +7,13 @@ import lk.pubudu.app.exception.AlreadyIssuedException;
 import lk.pubudu.app.exception.LimitExceedException;
 import lk.pubudu.app.exception.NotAvailableException;
 import lk.pubudu.app.exception.NotFoundException;
+import lk.pubudu.app.issuenote.entity.IssueItem;
+import lk.pubudu.app.issuenote.entity.IssueNote;
 import lk.pubudu.app.issuenote.repository.IssueItemRepository;
 import lk.pubudu.app.issuenote.repository.IssueNoteRepository;
 import lk.pubudu.app.member.entity.Member;
 import lk.pubudu.app.member.repository.MemberRepository;
+import lk.pubudu.app.util.Transformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +29,7 @@ public class IssueNoteService {
     private final BookRepository bookRepository;
     private final IssueNoteRepository issueNoteRepository;
     private final IssueItemRepository issueItemRepository;
+    private final Transformer transformer;
 
     @Transactional
     public IssueNoteDTO createNewIssueNote(IssueNoteDTO issueNoteDTO) {
@@ -59,7 +63,19 @@ public class IssueNoteService {
             throw new LimitExceedException("Member's book limit has been exceeded");
         }
 
-        return null;
+        /* Create issue note entity from IssueNoteDTO */
+        IssueNote issueNote = transformer.toIssueNoteEntity(issueNoteDTO);
+        IssueNote savedIssueNote = issueNoteRepository.save(issueNote);
+
+        /* Get saved issue note id (auto generated) and set it to the issue note dto */
+        Integer issueNoteId = savedIssueNote.getId();
+        issueNoteDTO.setId(issueNoteId);
+
+        /* Create issue item entity list from issue note dto */
+        List<IssueItem> issueItemList = transformer.toIssueItemEntityList(issueNoteDTO);
+        issueItemRepository.saveAll(issueItemList);
+
+        return issueNoteDTO;
     }
 
     public void test() {
