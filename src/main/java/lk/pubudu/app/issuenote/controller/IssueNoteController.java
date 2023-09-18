@@ -21,4 +21,9 @@ public class IssueNoteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(issueNoteService.createNewIssueNote(issueNoteDTO));
     }
 
+    @GetMapping
+    public void test() {
+        issueNoteService.test();
+    }
+
 }

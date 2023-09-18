@@ -32,7 +32,16 @@ public class IssueNoteService {
             if (isExist.isEmpty()) {
                 throw new NotFoundException("Book: " + isbn + " doesn't exist");
             }
+            Integer availableCopies = bookRepository.getAvailableBookCopies(isbn).get();
+            if (availableCopies == 0) {
+
+            }
         }
         return null;
+    }
+
+    public void test() {
+        Optional<Integer> availableBookCopies = bookRepository.getAvailableBookCopies("978-3-16-148410-1");
+        System.out.println("Hello" + availableBookCopies.get());
     }
 }
