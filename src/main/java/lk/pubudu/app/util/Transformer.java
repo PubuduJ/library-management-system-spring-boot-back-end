@@ -62,10 +62,11 @@ public class Transformer {
     }
 
     public ReturnNote toReturnEntity(ReturnItemDTO returnItemDTO) {
-        Optional<IssueNote> issueNote = issueNoteRepository.findById(returnItemDTO.getIssueNoteId());
-        Optional<Book> book = bookRepository.findById(returnItemDTO.getIsbn());
-        IssueItem issueItem = new IssueItem(issueNote.get(), book.get());
-        return new ReturnNote(issueItem, Date.valueOf(LocalDate.now()));
+        return new ReturnNote(
+                issueNoteRepository.findById(returnItemDTO.getIssueNoteId()).get(),
+                bookRepository.findById(returnItemDTO.getIsbn()).get(),
+                Date.valueOf(LocalDate.now())
+        );
     }
 
 }
