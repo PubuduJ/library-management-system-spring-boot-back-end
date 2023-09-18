@@ -17,4 +17,8 @@ public class ReturnNotePK implements Serializable {
     @Serial
     private static final long serialVersionUID = 7104970688144119002L;
     private IssueItem issueItem;
+
+    public ReturnNotePK(IssueNote issueNote, Book book) {
+        this.issueItem = new IssueItem(issueNote, book);
+    }
 }

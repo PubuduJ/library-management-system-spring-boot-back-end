@@ -42,22 +42,15 @@ public class ReturnNoteService {
                         returnItemDTO.getIssueNoteId(),
                         returnItemDTO.getIsbn()));
             }
-//            boolean isExist = returnNoteRepository.existsById(new ReturnNotePK(
-//                    issueNoteRepository.findById(returnItemDTO.getIssueNoteId()).get(),
-//                    bookRepository.findById(returnItemDTO.getIsbn()).get())
-//            );
-//            if (isExist) {
-//                throw new AlreadyReturnedException("This " + returnItemDTO.getIsbn() +  " have been already returned");
-//            }
+            boolean isExist = returnNoteRepository.existsById(new ReturnNotePK(
+                    issueNoteRepository.findById(returnItemDTO.getIssueNoteId()).get(),
+                    bookRepository.findById(returnItemDTO.getIsbn()).get())
+            );
+            if (isExist) {
+                throw new AlreadyReturnedException("This isbn " + returnItemDTO.getIsbn() +  " book have been already returned");
+            }
 
-            IssueNote issueNote = issueNoteRepository.findById(returnItemDTO.getIssueNoteId()).get();
-            Book book = bookRepository.findById(returnItemDTO.getIsbn()).get();
-//            IssueItem issueItem = new IssueItem(issueNote, book);
-//            ReturnNotePK returnNotePK = new ReturnNotePK(issueItem);
-//            Date date = new Date();
-//
-//            ReturnNote returnNote = new ReturnNote(returnNotePK, date);
-//            returnNoteRepository.save(returnNote);
+            returnNoteRepository.insertReturnNote(new Date(), returnItemDTO.getIssueNoteId(), returnItemDTO.getIsbn());
 
         }
         return returnNoteDTO;
