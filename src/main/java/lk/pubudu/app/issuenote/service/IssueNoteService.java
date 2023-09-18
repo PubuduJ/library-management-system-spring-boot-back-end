@@ -4,6 +4,7 @@ import lk.pubudu.app.book.entity.Book;
 import lk.pubudu.app.book.repository.BookRepository;
 import lk.pubudu.app.dto.IssueNoteDTO;
 import lk.pubudu.app.exception.AlreadyIssuedException;
+import lk.pubudu.app.exception.LimitExceedException;
 import lk.pubudu.app.exception.NotAvailableException;
 import lk.pubudu.app.exception.NotFoundException;
 import lk.pubudu.app.issuenote.repository.IssueItemRepository;
@@ -12,6 +13,7 @@ import lk.pubudu.app.member.entity.Member;
 import lk.pubudu.app.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +27,7 @@ public class IssueNoteService {
     private final IssueNoteRepository issueNoteRepository;
     private final IssueItemRepository issueItemRepository;
 
+    @Transactional
     public IssueNoteDTO createNewIssueNote(IssueNoteDTO issueNoteDTO) {
         Optional<Member> availability = memberRepository.findById(issueNoteDTO.getMemberId());
         /* Check the member existence */
@@ -49,8 +52,11 @@ public class IssueNoteService {
         }
         /* Check how many books can be issued for this member (maximum = 3) */
         List<Integer> availableLimit = memberRepository.availableBookLimit(issueNoteDTO.getMemberId());
-        if (availableLimit.isEmpty() || availableLimit.size() >= 2) {
-
+        if (availableLimit.size() != 1) {
+            throw new LimitExceedException("Member's book limit has been exceeded");
+        }
+        if (availableLimit.get(0) < issueNoteDTO.getBooks().size()) {
+            throw new LimitExceedException("Member's book limit has been exceeded");
         }
 
         return null;
@@ -58,8 +64,6 @@ public class IssueNoteService {
 
     public void test() {
         List<Integer> integers = memberRepository.availableBookLimit("104ccff3-c584-4782-a582-8a06479b4600");
-        for (Integer inte : integers) {
-            System.out.println(inte);
-        }
+        System.out.println(integers.get(0));
     }
 }
