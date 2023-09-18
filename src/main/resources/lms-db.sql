@@ -41,7 +41,7 @@ FROM `issue-item` II
 INNER JOIN `return-note` R ON NOT (II.issue_id = R.issue_id AND II.isbn = R.isbn)
 INNER JOIN `issue-note` `IN` ON II.issue_id = `IN`.id
 INNER JOIN book B ON II.isbn = B.isbn
-WHERE `IN`.member_id = '2714641a-301e-43d5-9d31-ad916d075700' AND B.isbn = '978-3-16-148410-3'
+WHERE `IN`.member_id = '2714641a-301e-43d5-9d31-ad916d075700' AND B.isbn = '978-3-16-148410-3';
 
 # Available book limit
 SELECT 3 - COUNT(`IN`.id) as available

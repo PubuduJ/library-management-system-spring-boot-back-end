@@ -1,6 +1,5 @@
 package lk.pubudu.app.issuenote.controller;
 
-import lk.pubudu.app.dto.BookDTO;
 import lk.pubudu.app.dto.IssueNoteDTO;
 import lk.pubudu.app.issuenote.service.IssueNoteService;
 import lombok.RequiredArgsConstructor;
