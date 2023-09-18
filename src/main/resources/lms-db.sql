@@ -26,3 +26,27 @@ VALUES (1,'978-3-16-148410-0'),
 INSERT INTO `return-note` (date, issue_id, isbn)
 VALUES ('2023-01-14',1,'978-3-16-148410-0'),
        ('2023-01-15',2,'978-3-16-148410-2');
+
+# Available copies of the relevant book
+SELECT (B.copies - COUNT(II.isbn) + COUNT(R.isbn)) AS `available_copies`
+FROM `issue-item` II
+LEFT JOIN `return-note` R ON II.issue_id = R.issue_id AND II.isbn = R.isbn
+RIGHT JOIN book B ON II.isbn = B.isbn
+WHERE B.isbn = '978-3-16-148410-1'
+GROUP BY B.isbn;
+
+# Is this book previously issued to this member ?
+SELECT II.isbn
+FROM `issue-item` II
+INNER JOIN `return-note` R ON NOT (II.issue_id = R.issue_id AND II.isbn = R.isbn)
+INNER JOIN `issue-note` `IN` ON II.issue_id = `IN`.id
+INNER JOIN book B ON II.isbn = B.isbn
+WHERE `IN`.member_id = '2714641a-301e-43d5-9d31-ad916d075700' AND B.isbn = '978-3-16-148410-3'
+
+# Available book limit
+SELECT 3 - COUNT(`IN`.id) as available
+FROM member M
+LEFT JOIN `issue-note` `IN` ON M.id = `IN`.member_id
+LEFT JOIN `issue-item` II ON `IN`.id = II.issue_id
+LEFT JOIN `return-note` R ON II.issue_id = R.issue_id AND II.isbn = R.isbn
+WHERE R.date IS NULL AND M.id = '104ccff3-c584-4782-a582-8a06479b4600' GROUP BY M.id;

@@ -3,6 +3,7 @@ package lk.pubudu.app.issuenote.service;
 import lk.pubudu.app.book.entity.Book;
 import lk.pubudu.app.book.repository.BookRepository;
 import lk.pubudu.app.dto.IssueNoteDTO;
+import lk.pubudu.app.exception.AlreadyIssuedException;
 import lk.pubudu.app.exception.NotAvailableException;
 import lk.pubudu.app.exception.NotFoundException;
 import lk.pubudu.app.issuenote.repository.IssueItemRepository;
@@ -43,9 +44,11 @@ public class IssueNoteService {
             }
             List<String> alreadyIssued = bookRepository.isAlreadyIssued(isbn, issueNoteDTO.getMemberId());
             if (!alreadyIssued.isEmpty()) {
-
+                throw new AlreadyIssuedException("Book: " + isbn + " has been already issued to the same member");
             }
         }
+        /* Check how many books can be issued for this member (maximum = 3) */
+
         return null;
     }
 
