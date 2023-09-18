@@ -79,8 +79,4 @@ public class IssueNoteService {
         return issueNoteDTO;
     }
 
-    public void test() {
-        List<Integer> integers = memberRepository.availableBookLimit("104ccff3-c584-4782-a582-8a06479b4600");
-        System.out.println(integers.get(0));
-    }
 }
