@@ -1,5 +1,6 @@
 package lk.pubudu.app.advice;
 
+import lk.pubudu.app.exception.NotAvailableException;
 import lk.pubudu.app.exception.NotFoundException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,17 @@ public class GlobalExceptionHandler {
         Map<String, Object> errAttributes = new LinkedHashMap<>();
         errAttributes.put("status", HttpStatus.NOT_FOUND.value());
         errAttributes.put("error", HttpStatus.NOT_FOUND.getReasonPhrase());
+        errAttributes.put("message", exp.getMessage());
+        errAttributes.put("timestamp", new Date().toString());
+        return errAttributes;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NotAvailableException.class)
+    public Map<String, Object> notAvailableExceptionHandler(NotAvailableException exp){
+        Map<String, Object> errAttributes = new LinkedHashMap<>();
+        errAttributes.put("status", HttpStatus.BAD_REQUEST.value());
+        errAttributes.put("error", HttpStatus.BAD_REQUEST.getReasonPhrase());
         errAttributes.put("message", exp.getMessage());
         errAttributes.put("timestamp", new Date().toString());
         return errAttributes;
