@@ -1,19 +1,14 @@
 package lk.pubudu.app.returnnote.service;
 
-import lk.pubudu.app.book.entity.Book;
 import lk.pubudu.app.book.repository.BookRepository;
 import lk.pubudu.app.dto.ReturnItemDTO;
 import lk.pubudu.app.dto.ReturnNoteDTO;
 import lk.pubudu.app.exception.AlreadyReturnedException;
 import lk.pubudu.app.exception.NotFoundException;
-import lk.pubudu.app.issuenote.entity.IssueItem;
-import lk.pubudu.app.issuenote.entity.IssueNote;
 import lk.pubudu.app.issuenote.repository.IssueItemRepository;
 import lk.pubudu.app.issuenote.repository.IssueNoteRepository;
-import lk.pubudu.app.returnnote.entity.ReturnNote;
 import lk.pubudu.app.returnnote.entity.ReturnNotePK;
 import lk.pubudu.app.returnnote.repository.ReturnNoteRepository;
-import lk.pubudu.app.util.Transformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +24,6 @@ public class ReturnNoteService {
     private final IssueItemRepository issueItemRepository;
     private final IssueNoteRepository issueNoteRepository;
     private final BookRepository bookRepository;
-    private final Transformer transformer;
 
     @Transactional
     public ReturnNoteDTO createNewReturnNote(ReturnNoteDTO returnNoteDTO) {

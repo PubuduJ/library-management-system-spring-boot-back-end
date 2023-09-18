@@ -1,9 +1,7 @@
 package lk.pubudu.app.returnnote.entity;
 
 import jakarta.persistence.*;
-import lk.pubudu.app.book.entity.Book;
 import lk.pubudu.app.issuenote.entity.IssueItem;
-import lk.pubudu.app.issuenote.entity.IssueNote;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,9 +30,4 @@ public class ReturnNote implements Serializable {
     private IssueItem issueItem;
     @Column(nullable = false)
     private Date date;
-
-    public ReturnNote(ReturnNotePK returnNotePK, Date date) {
-        this.issueItem = returnNotePK.getIssueItem();
-        this.date = date;
-    }
 }

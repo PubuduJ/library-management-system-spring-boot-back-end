@@ -5,13 +5,11 @@ import lk.pubudu.app.book.repository.BookRepository;
 import lk.pubudu.app.dto.BookDTO;
 import lk.pubudu.app.dto.IssueNoteDTO;
 import lk.pubudu.app.dto.MemberDTO;
-import lk.pubudu.app.dto.ReturnItemDTO;
 import lk.pubudu.app.issuenote.entity.IssueItem;
 import lk.pubudu.app.issuenote.entity.IssueNote;
 import lk.pubudu.app.issuenote.repository.IssueNoteRepository;
 import lk.pubudu.app.member.entity.Member;
 import lk.pubudu.app.member.repository.MemberRepository;
-import lk.pubudu.app.returnnote.entity.ReturnNote;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -60,13 +58,5 @@ public class Transformer {
         }
         return issueItemList;
     }
-
-//    public ReturnNote toReturnEntity(ReturnItemDTO returnItemDTO) {
-//        return new ReturnNote(
-//                issueNoteRepository.findById(returnItemDTO.getIssueNoteId()).get(),
-//                bookRepository.findById(returnItemDTO.getIsbn()).get(),
-//                Date.valueOf(LocalDate.now())
-//        );
-//    }
 
 }
