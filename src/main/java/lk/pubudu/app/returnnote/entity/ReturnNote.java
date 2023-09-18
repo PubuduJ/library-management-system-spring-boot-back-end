@@ -16,8 +16,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "return-item")
-public class ReturnItem implements Serializable {
+@Table(name = "return-note")
+public class ReturnNote implements Serializable {
     @Serial
     private static final long serialVersionUID = -1825809066197938424L;
     @Id

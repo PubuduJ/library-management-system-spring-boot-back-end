@@ -2,7 +2,7 @@ package lk.pubudu.app.issuenote.entity;
 
 import jakarta.persistence.*;
 import lk.pubudu.app.book.entity.Book;
-import lk.pubudu.app.returnnote.entity.ReturnItem;
+import lk.pubudu.app.returnnote.entity.ReturnNote;
 import lombok.*;
 
 import java.io.Serial;
@@ -16,6 +16,7 @@ import java.io.Serializable;
 @Table(name = "issue-item")
 @ToString(exclude = "returnItem")
 @EqualsAndHashCode(exclude = "returnItem")
+@IdClass(IssueItemPK.class)
 public class IssueItem implements Serializable {
     @Serial
     private static final long serialVersionUID = -2771788874263935209L;
@@ -29,7 +30,7 @@ public class IssueItem implements Serializable {
     private Book book;
     @Setter(AccessLevel.NONE)
     @OneToOne(mappedBy = "issueItem")
-    private ReturnItem returnItem;
+    private ReturnNote returnItem;
 
     public IssueItem(IssueNote issueNote, Book book) {
         this.issueNote = issueNote;
