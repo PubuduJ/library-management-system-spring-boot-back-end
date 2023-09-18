@@ -86,8 +86,8 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(AlreadyReturnException.class)
-    public Map<String, Object> alreadyReturnExceptionHandler(AlreadyReturnException exp){
+    @ExceptionHandler(AlreadyReturnedException.class)
+    public Map<String, Object> alreadyReturnExceptionHandler(AlreadyReturnedException exp){
         Map<String, Object> errAttributes = new LinkedHashMap<>();
         errAttributes.put("status", HttpStatus.BAD_REQUEST.value());
         errAttributes.put("error", HttpStatus.BAD_REQUEST.getReasonPhrase());

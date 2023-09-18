@@ -61,12 +61,12 @@ public class Transformer {
         return issueItemList;
     }
 
-    public ReturnNote toReturnEntity(ReturnItemDTO returnItemDTO) {
-        return new ReturnNote(
-                issueNoteRepository.findById(returnItemDTO.getIssueNoteId()).get(),
-                bookRepository.findById(returnItemDTO.getIsbn()).get(),
-                Date.valueOf(LocalDate.now())
-        );
-    }
+//    public ReturnNote toReturnEntity(ReturnItemDTO returnItemDTO) {
+//        return new ReturnNote(
+//                issueNoteRepository.findById(returnItemDTO.getIssueNoteId()).get(),
+//                bookRepository.findById(returnItemDTO.getIsbn()).get(),
+//                Date.valueOf(LocalDate.now())
+//        );
+//    }
 
 }

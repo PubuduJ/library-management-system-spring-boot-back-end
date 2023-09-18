@@ -33,8 +33,8 @@ public class ReturnNote implements Serializable {
     @Column(nullable = false)
     private Date date;
 
-    public ReturnNote(IssueNote issueNote, Book book, Date date) {
-        this.issueItem = new IssueItem(issueNote, book);
+    public ReturnNote(ReturnNotePK returnNotePK, Date date) {
+        this.issueItem = returnNotePK.getIssueItem();
         this.date = date;
     }
 }

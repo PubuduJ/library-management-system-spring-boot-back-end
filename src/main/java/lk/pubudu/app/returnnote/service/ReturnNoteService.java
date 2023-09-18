@@ -1,11 +1,16 @@
 package lk.pubudu.app.returnnote.service;
 
+import lk.pubudu.app.book.entity.Book;
 import lk.pubudu.app.book.repository.BookRepository;
 import lk.pubudu.app.dto.ReturnItemDTO;
 import lk.pubudu.app.dto.ReturnNoteDTO;
+import lk.pubudu.app.exception.AlreadyReturnedException;
 import lk.pubudu.app.exception.NotFoundException;
+import lk.pubudu.app.issuenote.entity.IssueItem;
+import lk.pubudu.app.issuenote.entity.IssueNote;
 import lk.pubudu.app.issuenote.repository.IssueItemRepository;
 import lk.pubudu.app.issuenote.repository.IssueNoteRepository;
+import lk.pubudu.app.returnnote.entity.ReturnNote;
 import lk.pubudu.app.returnnote.entity.ReturnNotePK;
 import lk.pubudu.app.returnnote.repository.ReturnNoteRepository;
 import lk.pubudu.app.util.Transformer;
@@ -13,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -36,14 +42,24 @@ public class ReturnNoteService {
                         returnItemDTO.getIssueNoteId(),
                         returnItemDTO.getIsbn()));
             }
-            boolean isExist = returnNoteRepository.existsById(new ReturnNotePK(
-                    issueNoteRepository.findById(returnItemDTO.getIssueNoteId()).get(),
-                    bookRepository.findById(returnItemDTO.getIsbn()).get())
-            );
-            if (isExist) {
+//            boolean isExist = returnNoteRepository.existsById(new ReturnNotePK(
+//                    issueNoteRepository.findById(returnItemDTO.getIssueNoteId()).get(),
+//                    bookRepository.findById(returnItemDTO.getIsbn()).get())
+//            );
+//            if (isExist) {
+//                throw new AlreadyReturnedException("This " + returnItemDTO.getIsbn() +  " have been already returned");
+//            }
 
-            }
+            IssueNote issueNote = issueNoteRepository.findById(returnItemDTO.getIssueNoteId()).get();
+            Book book = bookRepository.findById(returnItemDTO.getIsbn()).get();
+//            IssueItem issueItem = new IssueItem(issueNote, book);
+//            ReturnNotePK returnNotePK = new ReturnNotePK(issueItem);
+//            Date date = new Date();
+//
+//            ReturnNote returnNote = new ReturnNote(returnNotePK, date);
+//            returnNoteRepository.save(returnNote);
+
         }
-        return null;
+        return returnNoteDTO;
     }
 }
