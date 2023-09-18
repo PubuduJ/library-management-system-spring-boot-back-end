@@ -29,4 +29,13 @@ public interface BookRepository extends JpaRepository<Book, String> {
             GROUP BY B.isbn""", nativeQuery = true)
     Optional<Integer> getAvailableBookCopies(String isbn);
 
+    @Query(value = """
+            SELECT II.isbn
+            FROM `issue-item` II
+            INNER JOIN `return-note` R ON NOT (II.issue_id = R.issue_id AND II.isbn = R.isbn)
+            INNER JOIN `issue-note` `IN` ON II.issue_id = `IN`.id
+            INNER JOIN book B ON II.isbn = B.isbn
+            WHERE `IN`.member_id = ?1 AND B.isbn = ?2""", nativeQuery = true)
+    List<String> isAlreadyIssued(String memberId, String isbn);
+
 }
