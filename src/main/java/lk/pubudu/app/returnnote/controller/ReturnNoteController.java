@@ -1,14 +1,23 @@
 package lk.pubudu.app.returnnote.controller;
 
+import lk.pubudu.app.dto.ReturnNoteDTO;
+import lk.pubudu.app.returnnote.service.ReturnNoteService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/lms/api/returns")
 @RequiredArgsConstructor
 @CrossOrigin
 public class ReturnNoteController {
+
+    private final ReturnNoteService returnNoteService;
+
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public ResponseEntity<ReturnNoteDTO> createNewReturnNote(@RequestBody ReturnNoteDTO returnNoteDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(returnNoteService.createNewReturnNote(returnNoteDTO));
+    }
 
 }
