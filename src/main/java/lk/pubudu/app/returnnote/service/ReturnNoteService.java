@@ -1,9 +1,9 @@
-package lk.pubudu.app.issuenote.service;
+package lk.pubudu.app.returnnote.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class IssueNoteService {
+public class ReturnNoteService {
 }
