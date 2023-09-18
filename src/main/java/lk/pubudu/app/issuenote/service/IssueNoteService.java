@@ -48,14 +48,18 @@ public class IssueNoteService {
             }
         }
         /* Check how many books can be issued for this member (maximum = 3) */
+        List<Integer> availableLimit = memberRepository.availableBookLimit(issueNoteDTO.getMemberId());
+        if (availableLimit.isEmpty() || availableLimit.size() >= 2) {
+
+        }
 
         return null;
     }
 
     public void test() {
-        List<String> alreadyIssued = bookRepository.isAlreadyIssued("2714641a-301e-43d5-9d31-ad916d075700", "978-3-16-148410-3");
-        for (String isbn : alreadyIssued) {
-            System.out.println(isbn);
+        List<Integer> integers = memberRepository.availableBookLimit("104ccff3-c584-4782-a582-8a06479b4600");
+        for (Integer inte : integers) {
+            System.out.println(inte);
         }
     }
 }
