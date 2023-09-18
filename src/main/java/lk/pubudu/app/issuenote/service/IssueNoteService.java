@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,7 +75,7 @@ public class IssueNoteService {
         /* Create issue item entity list from issue note dto */
         List<IssueItem> issueItemList = transformer.toIssueItemEntityList(issueNoteDTO);
         issueItemRepository.saveAll(issueItemList);
-
+        issueNoteDTO.setDate(LocalDate.now());
         return issueNoteDTO;
     }
 
