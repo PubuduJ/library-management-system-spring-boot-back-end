@@ -79,6 +79,7 @@ public class BookService {
         return bookDTOList;
     }
 
+    @Transactional
     public BookDTO updateBook(String id, BookDTO bookDTO) {
         Optional<Book> availability = bookRepository.findById(id);
         if (availability.isEmpty()) {
