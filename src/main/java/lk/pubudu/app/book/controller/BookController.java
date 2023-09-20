@@ -1,5 +1,6 @@
 package lk.pubudu.app.book.controller;
 
+import jakarta.validation.Valid;
 import lk.pubudu.app.book.service.BookService;
 import lk.pubudu.app.dto.BookDTO;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class BookController {
     private final BookService bookService;
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<BookDTO> createBook(@RequestBody BookDTO bookDTO) {
+    public ResponseEntity<BookDTO> createBook(@Valid @RequestBody BookDTO bookDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(bookService.createBook(bookDTO));
     }
 
@@ -53,7 +54,7 @@ public class BookController {
     }
 
     @PatchMapping(path = "/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<BookDTO> updateBook(@PathVariable String id, @RequestBody BookDTO bookDTO) {
+    public ResponseEntity<BookDTO> updateBook(@PathVariable String id,@Valid @RequestBody BookDTO bookDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(bookService.updateBook(id, bookDTO));
     }
 
