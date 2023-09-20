@@ -3,11 +3,13 @@ package lk.pubudu.app.member.controller;
 import lk.pubudu.app.dto.MemberDTO;
 import lk.pubudu.app.exception.ConstraintViolationException;
 import lk.pubudu.app.member.service.MemberService;
+import lk.pubudu.app.util.ValidationGroups;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +23,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<MemberDTO> createMember(@RequestBody MemberDTO memberDTO) {
+    public ResponseEntity<MemberDTO> createMember(@Validated(ValidationGroups.Create.class) @RequestBody MemberDTO memberDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(memberService.createMember(memberDTO));
     }
 
@@ -65,7 +67,7 @@ public class MemberController {
     }
 
     @PatchMapping(path = "/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<MemberDTO> updateMember(@PathVariable String id, @RequestBody MemberDTO memberDTO) {
+    public ResponseEntity<MemberDTO> updateMember(@PathVariable String id,@Validated(ValidationGroups.Update.class) @RequestBody MemberDTO memberDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(memberService.updateMember(id, memberDTO));
     }
 
