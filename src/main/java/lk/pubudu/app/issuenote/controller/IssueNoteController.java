@@ -1,5 +1,6 @@
 package lk.pubudu.app.issuenote.controller;
 
+import jakarta.validation.Valid;
 import lk.pubudu.app.dto.IssueNoteDTO;
 import lk.pubudu.app.issuenote.service.IssueNoteService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class IssueNoteController {
     private final IssueNoteService issueNoteService;
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<IssueNoteDTO> createNewIssueNote(@RequestBody IssueNoteDTO issueNoteDTO) {
+    public ResponseEntity<IssueNoteDTO> createNewIssueNote(@Valid @RequestBody IssueNoteDTO issueNoteDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(issueNoteService.createNewIssueNote(issueNoteDTO));
     }
 

@@ -1,5 +1,6 @@
 package lk.pubudu.app.returnnote.controller;
 
+import jakarta.validation.Valid;
 import lk.pubudu.app.dto.ReturnNoteDTO;
 import lk.pubudu.app.returnnote.service.ReturnNoteService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class ReturnNoteController {
     private final ReturnNoteService returnNoteService;
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<ReturnNoteDTO> createNewReturnNote(@RequestBody ReturnNoteDTO returnNoteDTO) {
+    public ResponseEntity<ReturnNoteDTO> createNewReturnNote(@Valid @RequestBody ReturnNoteDTO returnNoteDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(returnNoteService.createNewReturnNote(returnNoteDTO));
     }
 

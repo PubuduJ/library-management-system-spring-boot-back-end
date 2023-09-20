@@ -19,7 +19,7 @@ public class MemberDTO implements Serializable {
     private static final long serialVersionUID = 4396532185808315498L;
     @Null(groups = ValidationGroups.Create.class, message = "Member UUID should be null")
     @NotBlank(groups = ValidationGroups.Update.class, message = "Member UUID number cannot be empty or null")
-    @Pattern(regexp = "^/([A-Fa-f\\d]{8}(-[A-Fa-f\\d]{4}){3}-[A-Fa-f\\d]{12})/?$", message = "Invalid member uuid")
+    @Pattern(regexp = "^[A-Fa-f\\d]{8}(-[A-Fa-f\\d]{4}){3}-[A-Fa-f\\d]{12}$", message = "Invalid member uuid")
     private String id;
     @NotBlank(message = "Member name cannot be empty or null")
     @Pattern(regexp = "^[A-Za-z][A-Za-z. ]+$", message = "Invalid member name")
