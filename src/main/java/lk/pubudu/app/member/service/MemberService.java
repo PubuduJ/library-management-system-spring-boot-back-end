@@ -1,15 +1,18 @@
 package lk.pubudu.app.member.service;
 
 import lk.pubudu.app.dto.MemberDTO;
+import lk.pubudu.app.exception.ConstraintViolationException;
 import lk.pubudu.app.exception.NotFoundException;
 import lk.pubudu.app.member.entity.Member;
 import lk.pubudu.app.member.repository.MemberRepository;
 import lk.pubudu.app.util.Transformer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

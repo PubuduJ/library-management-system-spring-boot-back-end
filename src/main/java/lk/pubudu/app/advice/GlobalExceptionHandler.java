@@ -96,4 +96,15 @@ public class GlobalExceptionHandler {
         return errAttributes;
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ConstraintViolationException.class)
+    public Map<String, Object> constraintViolationExceptionHandler(ConstraintViolationException exp){
+        Map<String, Object> errAttributes = new LinkedHashMap<>();
+        errAttributes.put("status", HttpStatus.BAD_REQUEST.value());
+        errAttributes.put("error", HttpStatus.BAD_REQUEST.getReasonPhrase());
+        errAttributes.put("message", exp.getMessage());
+        errAttributes.put("timestamp", new Date().toString());
+        return errAttributes;
+    }
+
 }
