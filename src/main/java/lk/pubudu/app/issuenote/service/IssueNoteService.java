@@ -56,7 +56,7 @@ public class IssueNoteService {
             }
         }
         /* Check how many books can be issued for this member (maximum = 3) */
-        List<Integer> availableLimit = memberRepository.availableBookLimit(issueNoteDTO.getMemberId());
+        List<Integer> availableLimit = bookRepository.availableBookLimit(issueNoteDTO.getMemberId());
         if (availableLimit.size() != 1) {
             throw new LimitExceedException("Member's book limit has been exceeded");
         }

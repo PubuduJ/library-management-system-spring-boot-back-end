@@ -22,13 +22,4 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     @Query(value = "SELECT * FROM member WHERE member.id LIKE ?1 OR member.name LIKE ?1 OR member.address LIKE ?1 OR member.contact LIKE ?1 LIMIT ?2 OFFSET ?3", nativeQuery = true)
     List<Member> searchMembersByPage(String query, int limit, int offset);
 
-    @Query(value = """
-            SELECT 3 - COUNT(`IN`.id) as available
-            FROM member M
-            LEFT JOIN `issue-note` `IN` ON M.id = `IN`.member_id
-            LEFT JOIN `issue-item` II ON `IN`.id = II.issue_id
-            LEFT JOIN `return-note` R ON II.issue_id = R.issue_id AND II.isbn = R.isbn
-            WHERE R.date IS NULL AND M.id = ?1 GROUP BY M.id""", nativeQuery = true)
-    List<Integer> availableBookLimit(String memberId);
-
 }

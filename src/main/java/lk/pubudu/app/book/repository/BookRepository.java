@@ -38,4 +38,13 @@ public interface BookRepository extends JpaRepository<Book, String> {
             WHERE `IN`.member_id = ?1 AND B.isbn = ?2""", nativeQuery = true)
     List<String> isAlreadyIssued(String memberId, String isbn);
 
+    @Query(value = """
+            SELECT 3 - COUNT(`IN`.id) as available
+            FROM member M
+            LEFT JOIN `issue-note` `IN` ON M.id = `IN`.member_id
+            LEFT JOIN `issue-item` II ON `IN`.id = II.issue_id
+            LEFT JOIN `return-note` R ON II.issue_id = R.issue_id AND II.isbn = R.isbn
+            WHERE R.date IS NULL AND M.id = ?1 GROUP BY M.id""", nativeQuery = true)
+    List<Integer> availableBookLimit(String memberId);
+
 }
