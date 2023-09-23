@@ -62,7 +62,7 @@ public class MemberController {
     @GetMapping(params = {"q", "size", "page"}, produces = "application/json")
     public ResponseEntity<List<MemberDTO>> searchMembersByPage(@RequestParam String q, @RequestParam int size, @RequestParam int page) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-Total-Count", String.valueOf(memberService.loadAllMembers().size()));
+        headers.add("X-Total-Count", String.valueOf(memberService.searchMembers(q).size()));
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(memberService.searchMembersByPage(q, size, page));
     }
 

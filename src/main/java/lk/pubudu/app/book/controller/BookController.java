@@ -49,7 +49,7 @@ public class BookController {
     @GetMapping(params = {"q", "size", "page"}, produces = "application/json")
     public ResponseEntity<List<BookDTO>> searchBooksByPage(@RequestParam String q, @RequestParam int size, @RequestParam int page) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-Total-Count", String.valueOf(bookService.loadAllBooks().size()));
+        headers.add("X-Total-Count", String.valueOf(bookService.searchBooks(q).size()));
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(bookService.searchBooksByPage(q, size, page));
     }
 
