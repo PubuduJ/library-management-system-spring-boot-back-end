@@ -1,7 +1,7 @@
 # Library Management System Spring Boot Back End <img src="assets/library.png" alt="drawing" width="27px"/>
 
 This project began as a **monolithic design**, and subsequently an **n-tier architecture** was used to further develop the project with 
-the **Jakarta Servlet 5.0** and **Apache Tomcat 10.1.1** technologies. This developed project can be found by clicking [**here.**](https://github.com/PubuduJ/library-management-system-back-end)
+the **Jakarta Servlet 5.0** and **Apache Tomcat 10.1.1** technologies. This developed project can be visited by clicking [**here.**](https://github.com/PubuduJ/library-management-system-back-end)
 
 This is the improved **Spring Boot 3.0.5 version** of the library management system and web services are exposed as 
 APIs under the **members**, **books**, **issue-notes** and **returns** resources in this project.
